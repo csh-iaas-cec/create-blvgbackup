@@ -5,6 +5,8 @@ import oci
 
 from fdk import response
 
+COMPARTMENT_ID = "ocid1.compartment.oc1..aaaaaaaajho77wsetgsyq4oqywzfl6pgw7cu4xnqbtvo3tdyo7uo7cusmsgq"
+
 def create_backup(compartment_id):
     signer = oci.auth.signers.get_resource_principals_signer()
     blockStorageClient = oci.core.BlockstorageClient(config={}, signer=signer)
@@ -22,7 +24,7 @@ def handler(ctx, data: io.BytesIO=None):
     except (Exception, ValueError) as ex:
         logging.getLogger().info('error parsing json payload: ' + str(ex))
     
-    compartment_id="ocid1.compartment.oc1..aaaaaaaajho77wsetgsyq4oqywzfl6pgw7cu4xnqbtvo3tdyo7uo7cusmsgq"
+    compartment_id=COMPARTMENT_ID
     create_backup(compartment_id)
     return response.Response(
         ctx, response_data=json.dumps(
