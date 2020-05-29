@@ -17,15 +17,14 @@ def create_backup(compartment_id):
 
 
 def handler(ctx, data: io.BytesIO=None):
-    
+    body=""
     try:
         body = json.loads(data.getvalue())
         # name = body.get("name")
     except (Exception, ValueError) as ex:
         logging.getLogger().info('error parsing json payload: ' + str(ex))
     
-    compartment_id=COMPARTMENT_ID
-    create_backup(compartment_id)
+    create_backup(COMPARTMENT_ID)
     return response.Response(
         ctx, response_data=json.dumps(
             {"message": "Successfully created Volume Group Backups"}),
