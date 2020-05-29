@@ -18,16 +18,14 @@ def handler(ctx, data: io.BytesIO=None):
     
     try:
         body = json.loads(data.getvalue())
-        name = body.get("name")
+        # name = body.get("name")
     except (Exception, ValueError) as ex:
         logging.getLogger().info('error parsing json payload: ' + str(ex))
-
-    logging.getLogger().info("Inside Python Hello World function")
     
-    compartment_id="ocid1.compartment.oc1..aaaaaaaadk2lcuzqspj4jj6wts43mjimym5qrhqqt6nzcz6hqrehjjzungxq"
+    compartment_id="ocid1.compartment.oc1..aaaaaaaajho77wsetgsyq4oqywzfl6pgw7cu4xnqbtvo3tdyo7uo7cusmsgq"
     create_backup(compartment_id)
     return response.Response(
         ctx, response_data=json.dumps(
-            {"message": "Hello world"}),
+            {"message": "Successfully created Volume Group Backups"}),
         headers={"Content-Type": "application/json"}
     )
